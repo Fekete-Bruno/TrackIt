@@ -24,6 +24,8 @@ const GlobalStyle = createGlobalStyle`
         border: 0;
         font-size: 100%;
         font: inherit;
+        text-decoration: none;
+        font-family: 'Lexend Deca', sans-serif;
         vertical-align: baseline;
     }
     /* HTML5 display-role reset for older browsers */
@@ -33,7 +35,6 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
-        font-family: 'Lexend Deca', sans-serif;
     }
     ol, ul {
         list-style: none;
@@ -49,6 +50,10 @@ const GlobalStyle = createGlobalStyle`
     table {
         border-collapse: collapse;
         border-spacing: 0;
+    }
+    input, button{
+        box-sizing: border-box  ;
+        font-family: 'Lexend Deca', sans-serif;
     }
 `;
 
