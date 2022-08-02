@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+
+const LogButton = styled.div`
+    color: rgba(82, 182, 255, 1);
+    text-decoration: underline;
+    font-size: 2vh;
+`;
+
 const FormWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -53,4 +60,4 @@ const FormWrapper = styled.div`
     /* KEEPING IT FOR THE NEXT SCREENS: font-family: 'Playball', cursive; */
 `;
 
-export default FormWrapper;
+export {FormWrapper, LogButton};
