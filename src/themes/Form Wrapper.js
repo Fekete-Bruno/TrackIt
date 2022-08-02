@@ -38,7 +38,7 @@ const FormWrapper = styled.div`
     }
 
     input::placeholder{
-        color:rgba(219, 219, 219, 1);
+        color:rgba(200, 200, 200, 1);
     }
 
     button{

@@ -6,6 +6,7 @@ export default function SignupScreen(){
     return(
         <FormWrapper>
             <img src={logo} alt="TrackIt Logo" />
+
             <form onSubmit={(event)=>{
                 event.preventDefault();
                 console.log('hey');
@@ -14,9 +15,9 @@ export default function SignupScreen(){
 		    <input type="password" placeholder="password" required />
 		    <input type="text" placeholder="name" required />
 		    <input type="text" placeholder="image" required />
-            <div></div>
 		    <button type="submit">Sign Up</button>
 		    </form>
+            
             <Link to="/">
                 <LogButton>Already have an account? Log in!</LogButton>
             </Link>

@@ -13,9 +13,9 @@ export default function LoginScreen(){
                 }}>
 		    <input type="email" placeholder="email" required />
 		    <input type="password" placeholder="password" required />
-            <div></div>
 		    <button type="submit">Log In</button>
 		    </form>
+            
             <Link to="/signup">
                 <LogButton>New to TrackIt? Sign up!</LogButton>
             </Link>
