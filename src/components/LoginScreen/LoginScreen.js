@@ -5,7 +5,7 @@ export default function LoginScreen(){
     return(
         <Wrapper>
             <img src={logo} alt="TrackIt Logo" />
-            Hello World
+            Hello World!
         </Wrapper>
     );
 }
@@ -19,4 +19,6 @@ const Wrapper = styled.div`
     img{
         width: 50vw;
     }
+
+    /* KEEPING IT FOR THE NEXT SCREENS: font-family: 'Playball', cursive; */
 `;
