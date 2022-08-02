@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { BrowserRouter , Routes , Route } from "react-router-dom";
-import GlobalStyle from "../theme/globalStyles";
+import GlobalStyle from "../themes/globalStyles";
 import LoginScreen from "./LoginScreen/LoginScreen";
 
 export default function App(){
