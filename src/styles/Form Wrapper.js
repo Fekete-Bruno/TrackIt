@@ -41,7 +41,14 @@ const FormWrapper = styled.div`
         color:rgba(200, 200, 200, 1);
     }
 
+    input:disabled{
+        background-color: rgba(242, 242, 242, 1);
+    }
+
     button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin: 0.5vh auto;
         color: rgba(255,255,255,1);
         font-size: 3vh;

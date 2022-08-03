@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { BrowserRouter , Routes , Route } from "react-router-dom";
-import GlobalStyle from "../themes/globalStyles";
+import GlobalStyle from "../styles/globalStyles";
 import LoginScreen from "./LoginScreen/LoginScreen";
 import SignupScreen from "./SignupScreen/SignupScreen";
 

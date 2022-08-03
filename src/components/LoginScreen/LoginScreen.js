@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {FormWrapper , LogButton} from "../../themes/Form Wrapper";
+import {FormWrapper , LogButton} from "../../styles/Form Wrapper";
 import logo from "../../images/TrackIt-Logo.png";
 
 export default function LoginScreen(){
