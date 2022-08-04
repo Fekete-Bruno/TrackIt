@@ -7,7 +7,7 @@ import { postLogin } from "../../services/axiosHandler";
 import UserContext from "../../contexts/UserContext";
 
 export default function LoginScreen(){
-    const {auth,setAuth} = useContext(UserContext)
+    const {auth,setAuth} = useContext(UserContext);
     const [disabled, setDisabled] = useState(false);
     const [innerButton,setInnerButton] = useState('Log In');
     const [form,setForm] = useState({});
@@ -32,6 +32,7 @@ export default function LoginScreen(){
         const obj = {
             timestamp: +new Date(),
             token: res.data.token,
+            image: res.data.image,
         };
         localStorage.setItem('trackit',JSON.stringify(obj));
         setAuth(obj);

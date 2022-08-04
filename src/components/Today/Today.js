@@ -1,5 +1,10 @@
+import Header from "../Header/Header";
+
 export default function Today(){
     return(
-        <div>TODAY PAGE</div>
+        <>
+            <Header />
+            TODAY PAGE
+        </>
     );
 }

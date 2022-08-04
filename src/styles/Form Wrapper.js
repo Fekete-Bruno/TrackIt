@@ -63,8 +63,6 @@ const FormWrapper = styled.div`
         cursor: pointer;
         background-color: rgba(82, 182, 255, 0.8);
     }
-
-    /* KEEPING IT FOR THE NEXT SCREENS: font-family: 'Playball', cursive; */
 `;
 
 export {FormWrapper, LogButton};
