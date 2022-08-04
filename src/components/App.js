@@ -8,10 +8,15 @@ import Today from "./Today/Today";
 import PrivatePage from "./PrivatePage/PrivatePage";
 
 export default function App(){
-    const [token,setToken] = useState(null);
+    const [auth,setAuth] = useState(null);
+    const localData = JSON.parse(localStorage.getItem("trackit"));
+    
+    if(localData && !auth){
+        setAuth(localData);
+    }
 
     return(
-        <UserContext.Provider value={{token,setToken}}>
+        <UserContext.Provider value={{auth,setAuth}}>
             <GlobalStyle />
             <BrowserRouter>
                 <Routes>

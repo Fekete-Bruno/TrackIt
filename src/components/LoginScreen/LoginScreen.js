@@ -1,17 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import {FormWrapper , LogButton} from "../../styles/Form Wrapper";
 import logo from "../../images/TrackIt-Logo.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { postLogin } from "../../services/axiosHandler";
 import UserContext from "../../contexts/UserContext";
 
 export default function LoginScreen(){
-    const {setToken} = useContext(UserContext)
+    const {auth,setAuth} = useContext(UserContext)
     const [disabled, setDisabled] = useState(false);
     const [innerButton,setInnerButton] = useState('Log In');
     const [form,setForm] = useState({});
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(auth){
+            navigate("/today");
+        }
+    }
+    ,[auth,navigate]);
+    
 
     function handleForm({name,value}){
         setForm({
@@ -21,12 +29,12 @@ export default function LoginScreen(){
     }
 
     function handleSuccess(res){
-        const auth = {
+        const obj = {
             timestamp: +new Date(),
             token: res.data.token,
         };
-        localStorage.setItem('trackit',JSON.stringify(auth));
-        setToken(auth.token);
+        localStorage.setItem('trackit',JSON.stringify(obj));
+        setAuth(obj);
         navigate('/today');
     }
 
