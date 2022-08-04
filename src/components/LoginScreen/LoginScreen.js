@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import {FormWrapper , LogButton} from "../../styles/Form Wrapper";
 import logo from "../../images/TrackIt-Logo.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { postLogin } from "../../services/axios";
+import { postLogin } from "../../services/axiosHandler";
+import UserContext from "../../contexts/UserContext";
 
 export default function LoginScreen(){
+    const {setToken} = useContext(UserContext)
     const [disabled, setDisabled] = useState(false);
     const [innerButton,setInnerButton] = useState('Log In');
     const [form,setForm] = useState({});
@@ -18,12 +20,22 @@ export default function LoginScreen(){
           });
     }
 
+    function handleSuccess(res){
+        const auth = {
+            timestamp: +new Date(),
+            token: res.data.token,
+        };
+        localStorage.setItem('trackit',JSON.stringify(auth));
+        setToken(auth.token);
+        navigate('/today');
+    }
+
     function sendForm(event){
         event.preventDefault();
         setDisabled(true);
         setInnerButton(<ThreeDots color="white"/>);
         const request = postLogin(form);
-        request.then((res)=>{console.log(res)});
+        request.then((res)=>{handleSuccess(res)});
         request.catch((res)=>resetForm(res.response));
     }
 

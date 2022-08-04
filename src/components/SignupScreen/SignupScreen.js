@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import logo from "../../images/TrackIt-Logo.png";
-import { postSignup } from "../../services/axios";
+import { postSignup } from "../../services/axiosHandler";
 
 
 export default function SignupScreen(){
