@@ -22,7 +22,7 @@ export default function PrivatePage({ children }) {
     }
 
     if (!auth) {
-      return renderError();
+      return(renderError());
     }
   
     const now = +new Date();
@@ -30,13 +30,13 @@ export default function PrivatePage({ children }) {
     console.log(HR-(now-timeLogged));
 
     if (now - timeLogged <= HR) {
-      return (
+        return (
         <>
           {children}
         </>
-      );
+        );
     } else {
-      renderError();
+        return(renderError());
     }
 }
 
