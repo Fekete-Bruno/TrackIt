@@ -27,7 +27,6 @@ export default function PrivatePage({ children }) {
   
     const now = +new Date();
     const timeLogged = auth.timestamp;
-    console.log(HR-(now-timeLogged));
 
     if (now - timeLogged <= HR) {
         return (
