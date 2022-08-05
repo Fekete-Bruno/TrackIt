@@ -9,7 +9,7 @@ export default function Today(){
     const [habits,setHabits] = useState(null);
     useEffect(()=>{
         const promise = getHabits();
-        promise.then((res)=>console.log(res));
+        promise.then((res)=>{setHabits(res.data)});
         promise.catch((res)=>{errorMessage(res.response);});
     },[]);
 
@@ -17,7 +17,7 @@ export default function Today(){
             <Wrapper>
                 <Header />
                 TODAY PAGE
-                <Footer />
+                <Footer habits={habits}/>
             </Wrapper>
     );
 }

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { Link } from "react-router-dom";
+
 
 // DELETE AFTER AXIOS GET IS DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const HARD_PER_CENT = 90;
@@ -8,24 +10,30 @@ const HARD_PER_CENT = 90;
 
 export default function Footer(){
 
-    const barText = "Hoje";
+    const barText = "Today";
     const barColor = "rgba(82, 182, 255, 1)";
 
     return(
         <Wrapper>
-            <div>Hábitos</div>
+            <Link to="/habits">
+                <div>Habits</div>
+            </Link>
 
-            <ProgressBarWrapper>
-                <CircularProgressbarWithChildren value={HARD_PER_CENT} background backgroundPadding={6}
-                styles={buildStyles({
-                    pathColor: "white",
-                    backgroundColor: barColor,
-                    trailColor:"transparent",
-                })}
-                >{barText}</CircularProgressbarWithChildren>
-            </ProgressBarWrapper>
-
-            <div>Histórico</div>
+            <Link to="/today">
+                <ProgressBarWrapper>
+                    <CircularProgressbarWithChildren value={HARD_PER_CENT} background backgroundPadding={6}
+                    styles={buildStyles({
+                        pathColor: "white",
+                        backgroundColor: barColor,
+                        trailColor:"transparent",
+                    })}
+                    >{barText}</CircularProgressbarWithChildren>
+                </ProgressBarWrapper>
+            </Link>
+            
+            <Link to="/history">
+                <div>History</div>
+            </Link>
         </Wrapper>
     );
 }
@@ -35,13 +43,20 @@ const Wrapper = styled.div`
     left: 0;
     bottom: 0;
     background-color: white;
-    color:rgba(82, 182, 255, 1);
     font-size: 2.5vh;
     width: 100vw;
     height: 10vh;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+
+    a{
+    color:rgba(82, 182, 255, 1);
+    }
+
+    &>div:hover{
+        cursor:pointer;
+    }
 `;
 
 const ProgressBarWrapper = styled.div`
