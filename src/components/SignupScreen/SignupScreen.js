@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import logo from "../../images/TrackIt-Logo.png";
-import { postSignup } from "../../services/axiosHandler";
+import { errorMessage, postSignup } from "../../services/axiosHandler";
 
 
 export default function SignupScreen(){
@@ -29,15 +29,7 @@ export default function SignupScreen(){
     }
 
     function resetForm(resp){
-        const initial=0;
-        const txt = 'Attention: ';
-        if(resp.data.details){
-            alert(txt+resp.data.details[initial]);
-        } else if(resp.data.message){
-            alert(txt+resp.data.message);
-        } else {
-            alert('ERROR '+resp.status);
-        }
+        errorMessage(resp);
         setDisabled(false);
         setInnerButton('Sign Up');
     }

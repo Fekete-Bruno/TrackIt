@@ -3,7 +3,7 @@ import {FormWrapper , LogButton} from "../../styles/Form Wrapper";
 import logo from "../../images/TrackIt-Logo.png";
 import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { postLogin } from "../../services/axiosHandler";
+import { errorMessage, postLogin } from "../../services/axiosHandler";
 import UserContext from "../../contexts/UserContext";
 
 export default function LoginScreen(){
@@ -49,15 +49,7 @@ export default function LoginScreen(){
     }
 
     function resetForm(resp){
-        const initial=0;
-        const txt = 'Attention: ';
-        if(resp.data.details){
-            alert(txt+resp.data.details[initial]);
-        } else if(resp.data.message){
-            alert(txt+resp.data.message);
-        } else {
-            alert('ERROR '+resp.status);
-        }
+        errorMessage(resp);
         setDisabled(false);
         setInnerButton('Log In');
     }
