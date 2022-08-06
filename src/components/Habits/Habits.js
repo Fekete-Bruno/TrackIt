@@ -3,6 +3,7 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 export default function Habits(){
+    const noHabits = 'You have no habits logged yet. Add a habit to start tracking it!';
     return(
         <Wrapper> 
             <Header />
@@ -11,6 +12,7 @@ export default function Habits(){
                     <h1>My Habits</h1>
                     <button><div>+</div></button>
                 </div>
+                <NoHabits>{noHabits}</NoHabits>
             </HabitsWrapper>    
             <Footer />
         </Wrapper>
@@ -39,16 +41,33 @@ const HabitsWrapper = styled.div`
         align-items: center;
         color:white;
         background-color: rgba(82, 182, 255, 1);
-        width: 6vw;
-        height: 3vh;
+        width: 8vw;
+        height: 4vh;
         font-size: 3vh;
-        border-radius: 5px;
+        border-radius: 6px;
     }
 
-    &>div{
-        font-size: 3vh;
+    button:hover{
+        cursor: pointer;
+    }
+
+    h1{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         color:rgba(18, 107, 165, 1);
+    }
+
+    div{
+        font-size: 3vh;
         display: flex;
         justify-content: space-between;
     }
+`;
+
+
+const NoHabits = styled.h3`
+    font-size: 3vh;
+    color:rgba(102, 102, 102, 1);
+    margin-top: 5vh;
 `;
