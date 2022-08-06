@@ -6,6 +6,8 @@ import SignupScreen from "./SignupScreen/SignupScreen";
 import UserContext from "../contexts/UserContext";
 import Today from "./Today/Today";
 import PrivatePage from "./PrivatePage/PrivatePage";
+import Habits from "./Habits/Habits";
+import ExpiredLogin from "./ExpiredLogin/ExpiredLogin";
 
 export default function App(){
     const [auth,setAuth] = useState(null);
@@ -27,6 +29,13 @@ export default function App(){
                             <Today />
                         </PrivatePage>
                     } />
+
+                    <Route path="/habits" element={
+                        <PrivatePage >
+                            <Habits />
+                        </PrivatePage>
+                    } />
+                    <Route path="/expired" element={<ExpiredLogin />} />
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>

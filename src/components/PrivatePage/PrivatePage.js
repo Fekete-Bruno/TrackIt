@@ -1,23 +1,18 @@
-import logo from "../../images/TrackIt-Logo.png";
-import styled from "styled-components";
-import { FormWrapper } from "../../styles/Form Wrapper";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+import ExpiredLogin from "../ExpiredLogin/ExpiredLogin";
 
 const SEC = 1000;
 const HR = 3600*SEC;
 
 export default function PrivatePage({ children }) {
-    const navigate = useNavigate();
-    const auth = JSON.parse(localStorage.getItem("trackit"));
+
+    const {auth} = useContext(UserContext);
     
     function renderError() {
         localStorage.clear("trackit");
-        return (
-            <Wrapper>
-                <img src={logo} alt="TrackIt Logo" />
-                <h1>Your login expired!</h1>
-                <button onClick={()=>{navigate("/");}}>Return to Login Screen</button>
-            </Wrapper>
+        return(
+            <ExpiredLogin />
         );
     }
 
@@ -38,16 +33,3 @@ export default function PrivatePage({ children }) {
         return(renderError());
     }
 }
-
-const Wrapper = styled(FormWrapper)`
-    margin: 0 auto;
-    width: 90vw;
-
-    &>*{
-        margin:2vh;
-    }
-
-    h1{
-        font-size: 3vh;
-    }
-`;

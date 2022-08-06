@@ -1,14 +1,14 @@
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import styled from "styled-components";
-import { getHabits , errorMessage } from "../../services/axiosHandler";
+import { getToday , errorMessage } from "../../services/axiosHandler";
 import { useEffect, useState } from "react";
 
 
 export default function Today(){
     const [habits,setHabits] = useState(null);
     useEffect(()=>{
-        const promise = getHabits();
+        const promise = getToday();
         promise.then((res)=>{setHabits(res.data)});
         promise.catch((res)=>{errorMessage(res.response);});
     },[]);
