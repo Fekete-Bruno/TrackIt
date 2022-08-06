@@ -1,9 +1,18 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { errorMessage, getHabits } from "../../services/axiosHandler";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 export default function Habits(){
     const noHabits = 'You have no habits logged yet. Add a habit to start tracking it!';
+    const [habits,setHabits] = useState([]);
+    useEffect(()=>{
+        const promise = getHabits();
+        promise.then((res)=>{setHabits(res.data)});
+        promise.catch((res)=>{errorMessage(res.response);});
+    },[])
+
     return(
         <Wrapper> 
             <Header />
@@ -12,7 +21,7 @@ export default function Habits(){
                     <h1>My Habits</h1>
                     <button><div>+</div></button>
                 </div>
-                <NoHabits>{noHabits}</NoHabits>
+                <NoHabits>{(habits.length===0)?(noHabits):(<></>)}</NoHabits>
             </HabitsWrapper>    
             <Footer />
         </Wrapper>
