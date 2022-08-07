@@ -74,7 +74,7 @@ const HabitsWrapper = styled.div`
         color:rgba(18, 107, 165, 1);
     }
 
-    div{
+    &>div{
         font-size: 3vh;
         display: flex;
         justify-content: space-between;
