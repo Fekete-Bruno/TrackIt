@@ -43,6 +43,7 @@ export default function HabitList({habits,deleted,setDeleted}){
 const Title = styled.div`
     display: flex;
     justify-content: space-between;
+    color:rgba(102, 102, 102, 1);
 
     ion-icon:hover{
         cursor: pointer;
