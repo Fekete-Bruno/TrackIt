@@ -1,26 +1,54 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { errorMessage, postHabits } from "../../services/axiosHandler";
 
 export default function CreatorBox({setCreate}){
-    const [weekdays,setWeekdays] = useState([{day:0,name:'S',selected:false},
-                        {day:1,name:'M',selected:false},
-                        {day:2,name:'T',selected:false},
-                        {day:3,name:'W',selected:false},
-                        {day:4,name:'T',selected:false},
-                        {day:5,name:'F',selected:false},
-                        {day:6,name:'S',selected:false}]);
+    const [weekdays,setWeekdays] = useState([
+        {day:0,name:'S',selected:false},
+        {day:1,name:'M',selected:false},
+        {day:2,name:'T',selected:false},
+        {day:3,name:'W',selected:false},
+        {day:4,name:'T',selected:false},
+        {day:5,name:'F',selected:false},
+        {day:6,name:'S',selected:false}]
+    );
+
     const [days,setDays] = useState([]);
-    const [name,setName] = useState('');
+    const [form,setForm] = useState({name:''});
 
     function addDays(){
         const newDays = weekdays.filter((day)=>{return(day.selected)}).map((day)=>{return(day.day)});
         setDays([...newDays]);
     }
 
+    function handleForm({name,value}){
+        setForm({
+            ...form,
+            [name]: value
+        });
+    }
+
+    function sendHabit(){
+        const body = {
+            ...form,
+            days
+        };
+        if(body.days.length===0){
+            alert('Select at least one day of the week!');
+            return;
+        }
+
+        const request = postHabits(body);
+        request.then((resp)=>setCreate(false));
+        request.catch((res)=>errorMessage(res.response));
+    }
 
     return(
         <Wrapper>
-            <Input placeholder="Name your habit" />
+            <Input placeholder="Name your habit" name="name" value={form.name} onChange={
+                (e)=>{
+                    handleForm({value:e.target.value,name:e.target.name})
+                }}/>
             <BoxWrapper>{weekdays.map((day,index)=>{
                 return(
                     <DayBox day={day} addDays={addDays} key={index} />
@@ -28,7 +56,7 @@ export default function CreatorBox({setCreate}){
             })}</BoxWrapper>
             <Form>
                 <div onClick={() => { setCreate(false); } }>Cancel</div>
-                <span onClick={()=>console.log(days)}>Send</span>
+                <span onClick={sendHabit}>Send</span>
             </Form>
         </Wrapper>
     );

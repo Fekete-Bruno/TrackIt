@@ -31,6 +31,12 @@ function getHabits(){
     return promise
 }
 
+function postHabits(body){
+    const config = createHeaders();
+    const promise = axios.post(`${BASE_URL}/habits`,body,config);
+    return promise;
+}
+
 function getToday(){
     const config = createHeaders();
     const promise = axios.get(`${BASE_URL}/habits/today`,config);
@@ -47,4 +53,4 @@ function postLogin(body){
     return promise;
 }
 
-export {postSignup , postLogin , getHabits, getToday , errorMessage};
+export {postSignup , postLogin , postHabits , getHabits, getToday , errorMessage};

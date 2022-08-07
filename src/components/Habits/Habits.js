@@ -26,7 +26,7 @@ export default function Habits(){
                     <button onClick={()=>{setCreate(true)}}><div>+</div></button>
                 </div>
                 {
-                    (create)?(<CreatorBox setCreate={setCreate}/>):(<></>)
+                    (create)?(<CreatorBox setCreate={setCreate}/>):(<HabitList habits={habits}/>)
                 }
                 <NoHabits>{(habits.length===0)?(noHabits):(<></>)}</NoHabits>
             </HabitsWrapper>    
