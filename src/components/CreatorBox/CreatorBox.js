@@ -33,13 +33,17 @@ export default function CreatorBox({setCreate}){
             ...form,
             days
         };
+        if(body.name.length===0){
+            alert('Please write the name of your habit!');
+            return;
+        }
         if(body.days.length===0){
             alert('Select at least one day of the week!');
             return;
         }
 
         const request = postHabits(body);
-        request.then((resp)=>setCreate(false));
+        request.then(()=>{setCreate(false)});
         request.catch((res)=>errorMessage(res.response));
     }
 
@@ -140,3 +144,5 @@ const Wrapper = styled.div`
     height: 20vh;
     border-radius: 6px;
 `;
+
+export {Wrapper,Box,BoxWrapper};

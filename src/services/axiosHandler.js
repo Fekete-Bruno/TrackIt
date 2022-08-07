@@ -37,6 +37,12 @@ function postHabits(body){
     return promise;
 }
 
+function deleteHabit(id){
+    const config = createHeaders();
+    const promise = axios.delete(`${BASE_URL}/habits/${id}`,config);
+    return promise;
+}
+
 function getToday(){
     const config = createHeaders();
     const promise = axios.get(`${BASE_URL}/habits/today`,config);
@@ -53,4 +59,4 @@ function postLogin(body){
     return promise;
 }
 
-export {postSignup , postLogin , postHabits , getHabits, getToday , errorMessage};
+export {postSignup , postLogin , postHabits , deleteHabit , getHabits, getToday , errorMessage};
