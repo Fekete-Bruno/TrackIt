@@ -21,7 +21,6 @@ export default function Today(){
     const month = ("0"+(dayjs().month()+1)).slice(-2);
     const week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const weekday = week[dayjs().day()];
-    console.log(habits);
     
     return(
             <Wrapper>
@@ -55,20 +54,20 @@ function Habit({habit,check,setCheck}){
         <HabitBox>
             <HabitText>
             <h1>{habit.name}</h1>
-            <h2>Current sequence: <Current>{habit.currentSequence} days</Current></h2>
-            <h2>Highest sequence: <Highest>{habit.highestSequence} days</Highest> </h2>
+            <h2>Current sequence: <Current done={habit.done}>{habit.currentSequence} days</Current></h2>
+            <h2>Highest sequence: <Highest done={habit.done} current={habit.currentSequence} highest={habit.highestSequence}>{habit.highestSequence} days</Highest> </h2>
             </HabitText>
             <Check isDone={habit.done} onClick={checker}><ion-icon name="checkmark-sharp"></ion-icon></Check>
         </HabitBox>
     );
 }
 
-const Highest = styled.span`
-    background-color: blue;
+const Current = styled.span`
+    color: ${props=>props.done?'rgba(143, 197, 73, 1)':''};
 `;
 
-const Current = styled.span`
-    background-color: red;
+const Highest = styled.span`
+    color: ${props=>(props.current===props.highest && props.done)?'rgba(143, 197, 73, 1)':''};
 `;
 
 const HabitText = styled.div`
@@ -91,10 +90,14 @@ const Check = styled.div`
     margin:2vh; 
     border-radius: 6px;
     font-size: 6vh;
-    background-color: ${props=>props.isDone?'rgba(143, 197, 73, 1)':'rgba(231, 231, 231, 1)'};//rgba(231, 231, 231, 1);
+    background-color: ${props=>props.isDone?'rgba(143, 197, 73, 1)':'rgba(231, 231, 231, 1)'};
 
     &:hover{
         cursor: pointer;
+    }
+
+    &:active{
+        transform: translateY(3px);
     }
 `;
 
