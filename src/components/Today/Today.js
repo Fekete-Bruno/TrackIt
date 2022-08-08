@@ -1,29 +1,14 @@
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import styled from "styled-components";
-import { getToday , errorMessage, postCheck, postUncheck } from "../../services/axiosHandler";
-import { useContext, useEffect, useState } from "react";
+import {  errorMessage, postCheck, postUncheck } from "../../services/axiosHandler";
+import { useContext } from "react";
 import { Backdrop } from "../../styles/globalStyles";
 import dayjs from "dayjs";
 import UserContext from "../../contexts/UserContext";
 
 export default function Today(){
-    const {percentage,setPercentage} = useContext(UserContext);
-    const [habits,setHabits] = useState([]);
-    const [check,setCheck] = useState (true);
-
-    useEffect(()=>{
-        const promise = getToday();
-        promise.then((res)=>{
-            setHabits(res.data);
-        });
-        promise.catch((res)=>{errorMessage(res.response);});
-    },[check]);
-
-    useEffect(()=>{
-        setPercentage(Math.round(100*(habits.filter((habit)=>{return habit.done}).length/habits.length)));
-    },[habits,setPercentage])
-
+    const {percentage,habits,check,setCheck} = useContext(UserContext);
     const date = ("0"+dayjs().date()).slice(-2);
     const month = ("0"+(dayjs().month()+1)).slice(-2);
     const week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import UserContext from "../../contexts/UserContext";
 import { errorMessage, getHabits } from "../../services/axiosHandler";
 import { Backdrop } from "../../styles/globalStyles";
 import CreatorBox from "../CreatorBox/CreatorBox";
@@ -8,6 +9,7 @@ import HabitList from "../HabitList/HabitList";
 import Header from "../Header/Header";
 
 export default function Habits(){
+    const {check,setCheck} = useContext(UserContext);
     const noHabits = 'You have no habits logged yet. Add a habit to start tracking it!';
     const initialState = [   
         {day:0,name:'S',selected:false},
@@ -26,7 +28,10 @@ export default function Habits(){
 
     useEffect(()=>{
         const promise = getHabits();
-        promise.then((res)=>{setHabits(res.data)});
+        promise.then((res)=>{
+            setHabits(res.data);
+            setCheck(!check);
+        });
         promise.catch((res)=>{errorMessage(res.response);});
     },[create,deleted]);
 
