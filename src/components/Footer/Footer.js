@@ -2,14 +2,11 @@ import styled from "styled-components";
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom";
-
-
-// DELETE AFTER AXIOS GET IS DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-const HARD_PER_CENT = 90;
-// after all that I can add something to change progress bar color after finishing
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 export default function Footer(){
-
+    const {percentage} = useContext(UserContext);
     const barText = "Today";
     const barColor = "rgba(82, 182, 255, 1)";
 
@@ -21,7 +18,7 @@ export default function Footer(){
 
             <Link to="/today">
                 <ProgressBarWrapper>
-                    <CircularProgressbarWithChildren value={HARD_PER_CENT} background backgroundPadding={6}
+                    <CircularProgressbarWithChildren value={percentage} background backgroundPadding={6}
                     styles={buildStyles({
                         pathColor: "white",
                         backgroundColor: barColor,

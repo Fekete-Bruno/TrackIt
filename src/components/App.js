@@ -12,13 +12,14 @@ import ExpiredLogin from "./ExpiredLogin/ExpiredLogin";
 export default function App(){
     const [auth,setAuth] = useState(null);
     const localData = JSON.parse(localStorage.getItem("trackit"));
+    const [percentage,setPercentage] = useState(0);
     
     if(localData && !auth){
         setAuth(localData);
     }
 
     return(
-        <UserContext.Provider value={{auth,setAuth}}>
+        <UserContext.Provider value={{auth,setAuth,percentage,setPercentage}}>
             <GlobalStyle />
             <BrowserRouter>
                 <Routes>

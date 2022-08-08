@@ -2,21 +2,28 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import styled from "styled-components";
 import { getToday , errorMessage, postCheck, postUncheck } from "../../services/axiosHandler";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Backdrop } from "../../styles/globalStyles";
 import dayjs from "dayjs";
-
+import UserContext from "../../contexts/UserContext";
 
 export default function Today(){
+    const {percentage,setPercentage} = useContext(UserContext);
     const [habits,setHabits] = useState([]);
-    const [check,setCheck] = useState (true)
+    const [check,setCheck] = useState (true);
+
     useEffect(()=>{
         const promise = getToday();
         promise.then((res)=>{
-            setHabits(res.data)}
-        );
+            setHabits(res.data);
+        });
         promise.catch((res)=>{errorMessage(res.response);});
     },[check]);
+
+    useEffect(()=>{
+        setPercentage(Math.round(100*(habits.filter((habit)=>{return habit.done}).length/habits.length)));
+    },[habits,setPercentage])
+
     const date = ("0"+dayjs().date()).slice(-2);
     const month = ("0"+(dayjs().month()+1)).slice(-2);
     const week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -28,10 +35,10 @@ export default function Today(){
                 <Header />
                 <TodayWrapper>
                     <Title>{`${weekday}, ${month}/${date}`}</Title>
-                    <SubTitle>{(habits.filter((habit)=>{return(habit.done)}))?('none'):('some')}</SubTitle>
+                    <SubTitle percentage={percentage} >{(percentage>0)?(`${percentage}% of your habits concluded`):('No completed habits yet')}</SubTitle>
                     {(habits)?(habits.map((habit,index)=>{return(<Habit habit={habit} check={check} setCheck={setCheck} key={index}/>)})):(<></>)}
                 </TodayWrapper>
-                <Footer habits={habits}/>
+                <Footer/>
             </Wrapper>
     );
 }
@@ -111,7 +118,8 @@ const HabitBox = styled.div`
 `;
 
 const SubTitle = styled.div`
-    background-color: blue;
+    margin: 1vh 0;
+    color:${props=>(props.percentage>0)?'rgba(143, 197, 73, 1)':'rgba(186, 186, 186, 1)'};
 `;
 
 const Title = styled.div`
