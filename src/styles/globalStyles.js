@@ -1,4 +1,5 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
 
 const GlobalStyle = createGlobalStyle`
     /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -57,4 +58,14 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-export default GlobalStyle;
+const Backdrop = styled.div`
+    position: fixed;
+    left: 0;
+    top:0;
+    z-index: -1;
+    background-color: rgba(242,242,242,1);
+    width: 100%;
+    height: 100%;
+`;
+
+export {GlobalStyle , Backdrop};

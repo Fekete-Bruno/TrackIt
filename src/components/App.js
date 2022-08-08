@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter , Routes , Route } from "react-router-dom";
-import GlobalStyle from "../styles/globalStyles";
+import {GlobalStyle} from "../styles/globalStyles";
 import LoginScreen from "./LoginScreen/LoginScreen";
 import SignupScreen from "./SignupScreen/SignupScreen";
 import UserContext from "../contexts/UserContext";

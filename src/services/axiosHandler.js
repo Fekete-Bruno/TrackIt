@@ -27,8 +27,8 @@ function errorMessage(resp){
 
 function getHabits(){
     const config = createHeaders();
-    const promise = axios.get(`${BASE_URL}/habits`,config)
-    return promise
+    const promise = axios.get(`${BASE_URL}/habits`,config);
+    return promise;
 }
 
 function postHabits(body){
@@ -59,4 +59,16 @@ function postLogin(body){
     return promise;
 }
 
-export {postSignup , postLogin , postHabits , deleteHabit , getHabits, getToday , errorMessage};
+function postCheck(id){
+    const config = createHeaders();
+    const promise = axios.post(`${BASE_URL}/habits/${id}/check`,id,config);
+    return promise;
+}
+
+function postUncheck(id){
+    const config = createHeaders();
+    const promise = axios.post(`${BASE_URL}/habits/${id}/uncheck`,id,config);
+    return promise;
+}
+
+export {postSignup , postLogin , postCheck , postUncheck , postHabits , deleteHabit , getHabits, getToday , errorMessage};

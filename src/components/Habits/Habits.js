@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { errorMessage, getHabits } from "../../services/axiosHandler";
+import { Backdrop } from "../../styles/globalStyles";
 import CreatorBox from "../CreatorBox/CreatorBox";
 import Footer from "../Footer/Footer";
 import HabitList from "../HabitList/HabitList";
@@ -56,16 +57,6 @@ export default function Habits(){
         </Wrapper>
     );
 }
-
-const Backdrop = styled.div`
-    position: fixed;
-    left: 0;
-    top:0;
-    z-index: -1;
-    background-color: rgba(242,242,242,1);
-    width: 100%;
-    height: 100%;
-`;
 
 const Wrapper = styled.div`
     width: 100%;
