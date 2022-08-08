@@ -7,8 +7,10 @@ import UserContext from "../../contexts/UserContext";
 
 export default function Footer(){
     const {percentage} = useContext(UserContext);
-    const barText = "Today";
-    const barColor = "rgba(82, 182, 255, 1)";
+    let barColor = "rgba(82, 182, 255, 1)";
+    if(percentage===100){
+        barColor="rgba(143, 197, 73, 1)";
+    }
 
     return(
         <Wrapper>
@@ -24,7 +26,7 @@ export default function Footer(){
                         backgroundColor: barColor,
                         trailColor:"transparent",
                     })}
-                    >{barText}</CircularProgressbarWithChildren>
+                    >Today</CircularProgressbarWithChildren>
                 </ProgressBarWrapper>
             </Link>
             
