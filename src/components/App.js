@@ -19,12 +19,14 @@ export default function App(){
     const [check,setCheck] = useState (true);
 
     useEffect(()=>{
-        const promise = getToday();
-        promise.then((res)=>{
-            setHabits(res.data);
-        });
-        promise.catch((res)=>{errorMessage(res.response);});
-    },[check]);
+        if(auth){
+            const promise = getToday();
+            promise.then((res)=>{
+                setHabits(res.data);
+            });
+            promise.catch((res)=>{errorMessage(res.response);});
+        }
+    },[check,auth]);
 
     useEffect(()=>{
         setPercentage(Math.round(100*(habits.filter((habit)=>{return habit.done}).length/habits.length)));

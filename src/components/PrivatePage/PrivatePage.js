@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import UserContext from "../../contexts/UserContext";
 import ExpiredLogin from "../ExpiredLogin/ExpiredLogin";
 
 const SEC = 1000;
@@ -7,7 +5,8 @@ const HR = 3600*SEC;
 
 export default function PrivatePage({ children }) {
 
-    const {auth} = useContext(UserContext);
+    
+    const auth = JSON.parse(localStorage.getItem("trackit"));
     
     function renderError() {
         localStorage.clear("trackit");
