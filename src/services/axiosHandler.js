@@ -4,13 +4,14 @@ const BASE_URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit';
 
 function createHeaders() {
     const auth = JSON.parse(localStorage.getItem("trackit"));
-    const config = {
-      headers: {
-        Authorization: `Bearer ${auth.token}`
-      }
-    };
-  
-    return config;
+    if(auth){
+        const config = {
+            headers: {
+            Authorization: `Bearer ${auth.token}`
+            }
+        };
+      return config;
+    }
 }
 
 function errorMessage(resp){
