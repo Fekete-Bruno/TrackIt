@@ -1,25 +1,11 @@
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 import { errorMessage, postHabits } from "../../services/axiosHandler";
 
-export default function CreatorBox({setCreate}){
-    const [weekdays,setWeekdays] = useState([
-        {day:0,name:'S',selected:false},
-        {day:1,name:'M',selected:false},
-        {day:2,name:'T',selected:false},
-        {day:3,name:'W',selected:false},
-        {day:4,name:'T',selected:false},
-        {day:5,name:'F',selected:false},
-        {day:6,name:'S',selected:false}]
-    );
+export default function CreatorBox({setCreate,initialState,weekdays,setWeekdays,form,setForm}){
 
-    const [days,setDays] = useState([]);
-    const [form,setForm] = useState({name:''});
-
-    function addDays(){
-        const newDays = weekdays.filter((day)=>{return(day.selected)}).map((day)=>{return(day.day)});
-        setDays([...newDays]);
-    }
+    const [disabled,setDisabled] = useState(false);
 
     function handleForm({name,value}){
         setForm({
@@ -28,7 +14,12 @@ export default function CreatorBox({setCreate}){
         });
     }
 
+    function addDays(){
+        setWeekdays([...weekdays]);
+    }
+
     function sendHabit(){
+        const days = weekdays.filter((day)=>{return(day.selected)}).map((day)=>{return(day.day)});
         const body = {
             ...form,
             days
@@ -41,33 +32,53 @@ export default function CreatorBox({setCreate}){
             alert('Select at least one day of the week!');
             return;
         }
-
-        const request = postHabits(body);
-        request.then(()=>{setCreate(false)});
-        request.catch((res)=>errorMessage(res.response));
+        if(disabled){
+            return;
+        }
+        setDisabled(true);
+        
+        const request = postHabits( body);
+        request.then(()=>{
+            setForm({name:''});
+            setWeekdays(initialState);
+            setCreate(false);}
+        );
+        request.catch((res)=>{
+            errorMessage(res.response);
+            setDisabled(false);
+        });
     }
 
     return(
         <Wrapper>
-            <Input placeholder="Name your habit" name="name" value={form.name} onChange={
+            <Input placeholder="Name your habit" name="name" disabled={disabled} value={form.name} onChange={
                 (e)=>{
                     handleForm({value:e.target.value,name:e.target.name})
                 }}/>
             <BoxWrapper>{weekdays.map((day,index)=>{
                 return(
-                    <DayBox day={day} addDays={addDays} key={index} />
+                    <DayBox disabled={disabled} day={day} addDays={addDays} key={index} />
                 );
             })}</BoxWrapper>
             <Form>
-                <div onClick={() => { setCreate(false); } }>Cancel</div>
-                <span onClick={sendHabit}>Send</span>
+                <div onClick={() => {
+                    if(disabled){return;}
+                    setCreate(false); } }>Cancel
+                </div>
+                <span onClick={sendHabit}>
+                    {(!disabled)?('Send'):(<ThreeDots color="white"/>)}
+                </span>
             </Form>
         </Wrapper>
     );
 }
 
-function DayBox({day,addDays}){
+function DayBox({day,addDays,disabled}){
+
     function handleDays(){
+        if(disabled){
+            return;
+        }
         day.selected = !day.selected;
         addDays();
     }
@@ -85,12 +96,12 @@ const Box = styled.div`
     align-items: center;
     justify-content: center;
     margin: 1vh 1vw;
-    background-color:${props=>props.isSelected?'rgba(219, 219, 219, 1)':'white'};
-    color:${props=>props.isSelected?'white':'rgba(219, 219, 219, 1)'};
+    background-color:${props=>props.isSelected?'rgba(207, 207, 207, 1)':'white'};
+    color:${props=>props.isSelected?'white':'rgba(207, 207, 207, 1)'};
     height: 4vh;
     width: 4vh;
     border-radius: 6px;
-    border:1px solid rgba(219, 219, 219, 1);
+    border:1px solid rgba(207, 207, 207, 1);
     &:hover{
         cursor: pointer;
     }
@@ -120,6 +131,9 @@ const Form = styled.span`
         color: white;
         border-radius: 6px;
     }
+    span>div{
+        width: 90%;
+    }
 `
 
 const Input = styled.input`
@@ -132,6 +146,10 @@ const Input = styled.input`
 
     &::placeholder{
         color:rgba(200, 200, 200, 1);
+    }
+
+    &:disabled{
+        background-color: rgba(242, 242, 242, 1);
     }
 `;
 

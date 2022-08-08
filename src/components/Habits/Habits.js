@@ -8,9 +8,20 @@ import Header from "../Header/Header";
 
 export default function Habits(){
     const noHabits = 'You have no habits logged yet. Add a habit to start tracking it!';
+    const initialState = [   
+        {day:0,name:'S',selected:false},
+        {day:1,name:'M',selected:false},
+        {day:2,name:'T',selected:false},
+        {day:3,name:'W',selected:false},
+        {day:4,name:'T',selected:false},
+        {day:5,name:'F',selected:false},
+        {day:6,name:'S',selected:false}
+    ];
     const [habits,setHabits] = useState([]);
     const [create,setCreate] = useState(false);
     const [deleted,setDeleted] = useState(false);
+    const [form,setForm] = useState({name:''});
+    const [weekdays,setWeekdays] = useState(initialState);
 
     useEffect(()=>{
         const promise = getHabits();
@@ -19,7 +30,9 @@ export default function Habits(){
     },[create,deleted]);
 
     return(
-        <Wrapper> 
+        <Wrapper>
+            
+            <Backdrop /> 
             <Header />
             <HabitsWrapper>
                 <div>
@@ -27,7 +40,14 @@ export default function Habits(){
                     <button onClick={()=>{setCreate(true)}}><div>+</div></button>
                 </div>
                 {
-                    (create)?(<CreatorBox setCreate={setCreate}/>):(<></>)
+                    (create)?(<CreatorBox 
+                        setCreate={setCreate}
+                        weekdays={weekdays}
+                        setWeekdays={setWeekdays}
+                        form={form}
+                        setForm={setForm}
+                        initialState={initialState}
+                    />):(<></>)
                 }
                 <HabitList habits={habits} deleted={deleted} setDeleted={setDeleted}/>
                 <NoHabits>{(habits.length===0)?(noHabits):(<></>)}</NoHabits>
@@ -37,10 +57,18 @@ export default function Habits(){
     );
 }
 
-const Wrapper = styled.div`
+const Backdrop = styled.div`
+    position: fixed;
+    left: 0;
+    top:0;
+    z-index: -1;
     background-color: rgba(242,242,242,1);
-    width: 100vw;
+    width: 100%;
     height: 100%;
+`;
+
+const Wrapper = styled.div`
+    width: 100%;
     display: flex;
     justify-content: center;
 `;
