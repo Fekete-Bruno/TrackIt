@@ -8,6 +8,7 @@ import Today from "./Today/Today";
 import PrivatePage from "./PrivatePage/PrivatePage";
 import Habits from "./Habits/Habits";
 import ExpiredLogin from "./ExpiredLogin/ExpiredLogin";
+import History from "./History/History";
 
 export default function App(){
     const [auth,setAuth] = useState(null);
@@ -36,6 +37,13 @@ export default function App(){
                             <Habits />
                         </PrivatePage>
                     } />
+
+                    <Route path="/history" element={
+                        <PrivatePage >
+                            <History />
+                        </PrivatePage>
+                    } />
+
                     <Route path="/expired" element={<ExpiredLogin />} />
                 </Routes>
             </BrowserRouter>
